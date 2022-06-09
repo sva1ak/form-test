@@ -1,12 +1,14 @@
+import com.codeborne.selenide.conditions.Text;
 import org.junit.jupiter.api.Test;
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class FormTest extends BaseTest{
+public class FormTest extends BaseTest {
 
     @Test
-    public void tst(){
+    public void tst() {
         open("/automation-practice-form");
         $("#firstName").setValue("First");
         $("#lastName").setValue("Last");
@@ -35,6 +37,11 @@ public class FormTest extends BaseTest{
         $("#stateCity-wrapper").$(byText("Karnal")).click();
 
         $("#submit").click();
+
+        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
+
+        $(".table-responsive").shouldHave(text("First Last"),
+                text("e-mail@ya.ru"), text("Male"), text("9201111234"), text("Some Address"), text("Haryana"), text ("Karnal"));
 
         sleep(5000);
     }
